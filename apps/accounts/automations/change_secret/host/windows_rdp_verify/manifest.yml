@@ -1,0 +1,29 @@
+id: change_secret_windows_rdp_verify
+name: "{{ 'Windows account change secret rdp verify' | trans }}"
+version: 1
+method: change_secret
+category: host
+type:
+  - windows
+priority: 49
+params:
+  - name: groups
+    type: str
+    label: '用户组'
+    default: 'Users,Remote Desktop Users'
+    help_text: "{{ 'Params groups help text' | trans }}"
+
+
+i18n:
+  Windows account change secret rdp verify:
+    zh: '使用 Ansible 模块 win_user 执行 Windows 账号改密 RDP 协议测试最后的可连接性'
+    ja: 'Ansibleモジュールwin_userはWindowsアカウントの改密RDPプロトコルテストの最後の接続性を実行する'
+    en: 'Using the Ansible module win_user performs Windows account encryption RDP protocol testing for final connectivity'
+    pt: 'Usando o módulo Ansible win_user para testar a conectividade final do protocolo RDP após alterar a senha da conta Windows'
+
+
+  Params groups help text:
+    zh: '请输入用户组，多个用户组使用逗号分隔（需填写已存在的用户组）'
+    ja: 'グループを入力してください。複数のグループはコンマで区切ってください（既存のグループを入力してください）'
+    en: 'Please enter the group. Multiple groups are separated by commas (please enter the existing group)'
+    pt: 'Por favor, insira o grupo. Múltiplos grupos são separados por vírgulas (por favor, insira o grupo existente)'
