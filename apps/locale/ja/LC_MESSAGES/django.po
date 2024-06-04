@@ -3974,8 +3974,8 @@ msgid "Your account has been created successfully"
 msgstr "アカウントが正常に作成されました"
 
 #: jumpserver/context_processor.py:12
-msgid "JumpServer Open Source Bastion Host"
-msgstr "JumpServer オープンソースの要塞ホスト"
+msgid "GITA Access"
+msgstr "GITA Access"
 
 #: jumpserver/views/celery_flower.py:22
 msgid "<h1>Flower service unavailable, check it</h1>"

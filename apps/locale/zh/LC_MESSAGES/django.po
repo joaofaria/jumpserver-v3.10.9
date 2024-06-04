@@ -2467,7 +2467,7 @@ msgstr "会话"
 
 #: audits/models.py:70
 msgid "File transfer log"
-msgstr "文件管理"
+msgstr "Gerenciamento de arquivos"
 
 #: audits/models.py:94 audits/serializers.py:86
 msgid "Resource Type"
@@ -3930,8 +3930,8 @@ msgid "Your account has been created successfully"
 msgstr "你的账号已创建成功"
 
 #: jumpserver/context_processor.py:12
-msgid "JumpServer Open Source Bastion Host"
-msgstr "JumpServer 开源堡垒机"
+msgid "GITA Access"
+msgstr "GITA Access"
 
 #: jumpserver/views/celery_flower.py:22
 msgid "<h1>Flower service unavailable, check it</h1>"
@@ -4686,7 +4686,7 @@ msgstr "Web终端"
 
 #: rbac/models/menu.py:19
 msgid "Can view file manager"
-msgstr "文件管理"
+msgstr "Gerenciamento de arquivos"
 
 #: rbac/models/menu.py:20
 msgid "Can view System Tools"

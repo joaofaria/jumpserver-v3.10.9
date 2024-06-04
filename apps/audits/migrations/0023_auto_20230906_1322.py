@@ -14,16 +14,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='ftplog',
             name='date_start',
-            field=models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Date start'),
+            field=models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Data de início'),
         ),
         migrations.AlterField(
             model_name='operatelog',
             name='action',
-            field=models.CharField(choices=[('view', 'View'), ('update', 'Update'), ('delete', 'Delete'), ('create', 'Create'), ('download', 'Download'), ('connect', 'Connect'), ('login', 'Login'), ('change_password', 'Change password'), ('accept', 'Accept'), ('review', 'Review'), ('notice', 'Notifications'), ('reject', 'Reject'), ('approve', 'Approve'), ('close', 'Close')], max_length=16, verbose_name='Action'),
+            field=models.CharField(choices=[('view', 'Visualizar'), ('update', 'Atualizar'), ('delete', 'Apagar'), ('create', 'Criar'), ('download', 'Download'), ('connect', 'Conectar'), ('login', 'Login'), ('change_password', 'Alterar Senha'), ('accept', 'Aceitar'), ('review', 'Analisar'), ('notice', 'Notificações'), ('reject', 'Recusar'), ('approve', 'Aprovar'), ('close', 'Fechar')], max_length=16, verbose_name='Ação'),
         ),
         migrations.AlterField(
             model_name='userloginlog',
             name='datetime',
-            field=models.DateTimeField(db_index=True, default=django.utils.timezone.now, verbose_name='Date login'),
+            field=models.DateTimeField(db_index=True, default=django.utils.timezone.now, verbose_name='Data de login'),
         ),
     ]

@@ -62,7 +62,7 @@ class UserResetPasswordSendCodeApi(CreateAPIView):
             raise ValueError(err)
 
         code = random_string(6, lower=False, upper=False)
-        subject = '%s: %s' % (get_login_title(), _('Forgot password'))
+        subject = '%s: %s' % (get_login_title(), _('Esqueci minha senha'))
         context = {
             'user': user, 'title': subject, 'code': code,
         }

@@ -44,7 +44,7 @@ class JobLog(JobExecution):
 
     class Meta:
         proxy = True
-        verbose_name = _("Job audit log")
+        verbose_name = _("Log de auditoria do trabalho")
 
 
 class FTPLog(OrgModelMixin):
@@ -53,25 +53,25 @@ class FTPLog(OrgModelMixin):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     user = models.CharField(max_length=128, verbose_name=_("User"))
     remote_addr = models.CharField(
-        max_length=128, verbose_name=_("Remote addr"), blank=True, null=True
+        max_length=128, verbose_name=_("Endereço remoto"), blank=True, null=True
     )
-    asset = models.CharField(max_length=1024, verbose_name=_("Asset"))
-    account = models.CharField(max_length=128, verbose_name=_("Account"))
+    asset = models.CharField(max_length=1024, verbose_name=_("Ativo"))
+    account = models.CharField(max_length=128, verbose_name=_("Conta"))
     operate = models.CharField(
-        max_length=16, verbose_name=_("Operate"), choices=OperateChoices.choices
+        max_length=16, verbose_name=_("Operar"), choices=OperateChoices.choices
     )
-    filename = models.CharField(max_length=1024, verbose_name=_("Filename"))
-    is_success = models.BooleanField(default=True, verbose_name=_("Success"))
-    date_start = models.DateTimeField(auto_now_add=True, verbose_name=_("Date start"), db_index=True)
-    has_file = models.BooleanField(default=False, verbose_name=_("File"))
-    session = models.CharField(max_length=36, verbose_name=_("Session"), default=uuid.uuid4)
+    filename = models.CharField(max_length=1024, verbose_name=_("Nome do arquivo"))
+    is_success = models.BooleanField(default=True, verbose_name=_("Sucesso"))
+    date_start = models.DateTimeField(auto_now_add=True, verbose_name=_("Data de início"), db_index=True)
+    has_file = models.BooleanField(default=False, verbose_name=_("Arquivo"))
+    session = models.CharField(max_length=36, verbose_name=_("Sessão"), default=uuid.uuid4)
 
     class Meta:
-        verbose_name = _("File transfer log")
+        verbose_name = _("Log de transferência de arquivos")
 
     @property
     def filepath(self):
-        return os.path.join(self.upload_to, self.date_start.strftime('%Y-%m-%d'), str(self.id))
+        return os.path.join(self.upload_to, self.date_start.strftime('%d-%m-%Y'), str(self.id))
 
     def save_file_to_storage(self, file):
         try:
@@ -87,18 +87,18 @@ class FTPLog(OrgModelMixin):
 
 class OperateLog(OrgModelMixin):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
-    user = models.CharField(max_length=128, verbose_name=_("User"))
+    user = models.CharField(max_length=128, verbose_name=_("Usuário"))
     action = models.CharField(
-        max_length=16, choices=ActionChoices.choices, verbose_name=_("Action")
+        max_length=16, choices=ActionChoices.choices, verbose_name=_("Ação")
     )
-    resource_type = models.CharField(max_length=64, verbose_name=_("Resource Type"))
-    resource = models.CharField(max_length=128, verbose_name=_("Resource"))
+    resource_type = models.CharField(max_length=64, verbose_name=_("Tipo de recurso"))
+    resource = models.CharField(max_length=128, verbose_name=_("Recurso"))
     resource_id = models.CharField(
         max_length=128, blank=True, default='', db_index=True,
-        verbose_name=_("Resource")
+        verbose_name=_("Recurso")
     )
-    remote_addr = models.CharField(max_length=128, verbose_name=_("Remote addr"), blank=True, null=True)
-    datetime = models.DateTimeField(auto_now=True, verbose_name=_('Datetime'), db_index=True)
+    remote_addr = models.CharField(max_length=128, verbose_name=_("Endereço remoto"), blank=True, null=True)
+    datetime = models.DateTimeField(auto_now=True, verbose_name=_('Data e hora'), db_index=True)
     diff = models.JSONField(default=dict, encoder=ModelJSONFieldEncoder, null=True)
 
     def __str__(self):
@@ -129,7 +129,7 @@ class OperateLog(OrgModelMixin):
         return operate_logs
 
     class Meta:
-        verbose_name = _("Operate log")
+        verbose_name = _("Log de operação")
         ordering = ('-datetime',)
 
 
@@ -137,24 +137,24 @@ class ActivityLog(OrgModelMixin):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     type = models.CharField(
         choices=ActivityChoices.choices, max_length=2,
-        null=True, default=None, verbose_name=_("Activity type"),
+        null=True, default=None, verbose_name=_("Tipo de atividade"),
     )
     resource_id = models.CharField(
         max_length=36, blank=True, default='',
-        db_index=True, verbose_name=_("Resource")
+        db_index=True, verbose_name=_("Recurso")
     )
     datetime = models.DateTimeField(
-        auto_now=True, verbose_name=_('Datetime'), db_index=True
+        auto_now=True, verbose_name=_('Data e hora'), db_index=True
     )
     # 日志的描述信息
-    detail = models.TextField(default='', blank=True, verbose_name=_('Detail'))
+    detail = models.TextField(default='', blank=True, verbose_name=_('Detalhe'))
     # 详情ID, 结合 type 来使用, (实例ID 和 CeleryTaskID)
     detail_id = models.CharField(
-        max_length=36, default=None, null=True, verbose_name=_('Detail ID')
+        max_length=36, default=None, null=True, verbose_name=_('ID do detalhe')
     )
 
     class Meta:
-        verbose_name = _("Activity log")
+        verbose_name = _("Log de atividade")
         ordering = ('-datetime',)
 
     def __str__(self):
@@ -169,47 +169,47 @@ class ActivityLog(OrgModelMixin):
 
 class PasswordChangeLog(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
-    user = models.CharField(max_length=128, verbose_name=_("User"))
-    change_by = models.CharField(max_length=128, verbose_name=_("Change by"))
+    user = models.CharField(max_length=128, verbose_name=_("Usuário"))
+    change_by = models.CharField(max_length=128, verbose_name=_("Mudança por"))
     remote_addr = models.CharField(
-        max_length=128, verbose_name=_("Remote addr"), blank=True, null=True
+        max_length=128, verbose_name=_("Endereço remoto"), blank=True, null=True
     )
-    datetime = models.DateTimeField(auto_now=True, verbose_name=_("Datetime"))
+    datetime = models.DateTimeField(auto_now=True, verbose_name=_("Data e Hora"))
 
     def __str__(self):
         return "{} change {}'s password".format(self.change_by, self.user)
 
     class Meta:
-        verbose_name = _("Password change log")
+        verbose_name = _("Registro de alteração de senha")
 
 
 class UserLoginLog(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
-    username = models.CharField(max_length=128, verbose_name=_("Username"))
+    username = models.CharField(max_length=128, verbose_name=_("Nome de Usuário"))
     type = models.CharField(
-        choices=LoginTypeChoices.choices, max_length=2, verbose_name=_("Login type")
+        choices=LoginTypeChoices.choices, max_length=2, verbose_name=_("Tipo de Login")
     )
-    ip = models.GenericIPAddressField(verbose_name=_("Login IP"))
+    ip = models.GenericIPAddressField(verbose_name=_("IP do Login"))
     city = models.CharField(
-        max_length=254, blank=True, null=True, verbose_name=_("Login city")
+        max_length=254, blank=True, null=True, verbose_name=_("Cidade de Login")
     )
     user_agent = models.CharField(
-        max_length=254, blank=True, null=True, verbose_name=_("User agent")
+        max_length=254, blank=True, null=True, verbose_name=_("Agente de usuário")
     )
     mfa = models.SmallIntegerField(
         default=MFAChoices.unknown, choices=MFAChoices.choices, verbose_name=_("MFA")
     )
     reason = models.CharField(
-        default="", max_length=128, blank=True, verbose_name=_("Reason")
+        default="", max_length=128, blank=True, verbose_name=_("Motivo")
     )
     status = models.BooleanField(
         default=LoginStatusChoices.success,
         choices=LoginStatusChoices.choices,
         verbose_name=_("Status"),
     )
-    datetime = models.DateTimeField(default=timezone.now, verbose_name=_("Date login"), db_index=True)
+    datetime = models.DateTimeField(default=timezone.now, verbose_name=_("Data de login"), db_index=True)
     backend = models.CharField(
-        max_length=32, default="", verbose_name=_("Authentication backend")
+        max_length=32, default="", verbose_name=_("Back-end de Autenticação")
     )
 
     def __str__(self):
@@ -253,18 +253,18 @@ class UserLoginLog(models.Model):
 
     class Meta:
         ordering = ["-datetime", "username"]
-        verbose_name = _("User login log")
+        verbose_name = _("Log de login do usuário")
 
 
 class UserSession(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
-    ip = models.GenericIPAddressField(verbose_name=_("Login IP"))
-    key = models.CharField(max_length=128, verbose_name=_("Session key"))
-    city = models.CharField(max_length=254, blank=True, null=True, verbose_name=_("Login city"))
-    user_agent = models.CharField(max_length=254, blank=True, null=True, verbose_name=_("User agent"))
-    type = models.CharField(choices=LoginTypeChoices.choices, max_length=2, verbose_name=_("Login type"))
-    backend = models.CharField(max_length=32, default="", verbose_name=_("Authentication backend"))
-    date_created = models.DateTimeField(null=True, blank=True, verbose_name=_('Date created'))
+    ip = models.GenericIPAddressField(verbose_name=_("IP de Login"))
+    key = models.CharField(max_length=128, verbose_name=_("Chave de sessão"))
+    city = models.CharField(max_length=254, blank=True, null=True, verbose_name=_("Cidade de Login"))
+    user_agent = models.CharField(max_length=254, blank=True, null=True, verbose_name=_("Agente de Usuario"))
+    type = models.CharField(choices=LoginTypeChoices.choices, max_length=2, verbose_name=_("Tipo de Login"))
+    backend = models.CharField(max_length=32, default="", verbose_name=_("Back-end de Autenticação"))
+    date_created = models.DateTimeField(null=True, blank=True, verbose_name=_('Data de criação'))
     user = models.ForeignKey(
         'users.User', verbose_name=_('User'), related_name='sessions', on_delete=models.CASCADE
     )
@@ -302,7 +302,7 @@ class UserSession(models.Model):
 
     class Meta:
         ordering = ['-date_created']
-        verbose_name = _('User session')
+        verbose_name = _('Sessão de Usuário')
         permissions = [
             ('offline_usersession', _('Offline user session')),
         ]

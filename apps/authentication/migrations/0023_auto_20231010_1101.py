@@ -41,12 +41,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='accesskey',
             name='date_last_used',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='Date last used'),
+            field=models.DateTimeField(blank=True, null=True, verbose_name='Usado pela última vez em'),
         ),
         migrations.AddField(
             model_name='privatetoken',
             name='date_last_used',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='Date last used'),
+            field=models.DateTimeField(blank=True, null=True, verbose_name='Usado pela última vez em'),
         ),
         migrations.AlterField(
             model_name='accesskey',

@@ -42,7 +42,7 @@ class UserLoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         auto_login_field = self.fields['auto_login']
-        auto_login_field.label = _("{} days auto login").format(self.days_auto_login or 1)
+        auto_login_field.label = _("Manter conectado ({} dia(s)").format(self.days_auto_login or 1)
 
     def confirm_login_allowed(self, user):
         if not user.is_staff:

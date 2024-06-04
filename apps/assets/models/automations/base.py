@@ -14,12 +14,12 @@ from orgs.mixins.models import OrgModelMixin, JMSOrgBaseModel
 
 
 class BaseAutomation(PeriodTaskModelMixin, JMSOrgBaseModel):
-    accounts = models.JSONField(default=list, verbose_name=_("Accounts"))
-    nodes = models.ManyToManyField('assets.Node', blank=True, verbose_name=_("Node"))
-    assets = models.ManyToManyField('assets.Asset', blank=True, verbose_name=_("Assets"))
-    type = models.CharField(max_length=16, verbose_name=_('Type'))
-    is_active = models.BooleanField(default=True, verbose_name=_("Is active"))
-    params = models.JSONField(default=dict, verbose_name=_("Parameters"))
+    accounts = models.JSONField(default=list, verbose_name=_("Contas"))
+    nodes = models.ManyToManyField('assets.Node', blank=True, verbose_name=_("Nó"))
+    assets = models.ManyToManyField('assets.Asset', blank=True, verbose_name=_("Ativos"))
+    type = models.CharField(max_length=16, verbose_name=_('Tipo'))
+    is_active = models.BooleanField(default=True, verbose_name=_("Está ativo"))
+    params = models.JSONField(default=dict, verbose_name=_("Parâmetros"))
 
     def __str__(self):
         return self.name + '@' + str(self.created_by)
@@ -101,19 +101,19 @@ class BaseAutomation(PeriodTaskModelMixin, JMSOrgBaseModel):
 class AssetBaseAutomation(BaseAutomation):
     class Meta:
         proxy = True
-        verbose_name = _("Asset automation task")
+        verbose_name = _("Tarefa de automação de ativos")
 
 
 class AutomationExecution(OrgModelMixin):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     automation = models.ForeignKey(
         'BaseAutomation', related_name='executions', on_delete=models.CASCADE,
-        verbose_name=_('Automation task'), null=True
+        verbose_name=_('Tarefa de automação'), null=True
     )
     status = models.CharField(max_length=16, default='pending', verbose_name=_('Status'))
-    date_created = models.DateTimeField(auto_now_add=True, verbose_name=_('Date created'))
-    date_start = models.DateTimeField(null=True, verbose_name=_('Date start'), db_index=True)
-    date_finished = models.DateTimeField(null=True, verbose_name=_("Date finished"))
+    date_created = models.DateTimeField(auto_now_add=True, verbose_name=_('Data de criação'))
+    date_start = models.DateTimeField(null=True, verbose_name=_('Date de início'), db_index=True)
+    date_finished = models.DateTimeField(null=True, verbose_name=_("Date de fim"))
     snapshot = EncryptJsonDictTextField(
         default=dict, blank=True, null=True, verbose_name=_('Automation snapshot')
     )

@@ -7,13 +7,13 @@ from users.const import FileNameConflictResolution
 class BasicSerializer(serializers.Serializer):
     file_name_conflict_resolution = serializers.ChoiceField(
         FileNameConflictResolution.choices, default=FileNameConflictResolution.REPLACE,
-        required=False, label=_('File name conflict resolution')
+        required=False, label=_('Resolução de conflitos de nome de arquivo')
     )
     terminal_theme_name = serializers.CharField(
-        max_length=128, required=False, default='Default',
-        label=_('Terminal theme name')
+        max_length=128, required=False, default='Padrão',
+        label=_('Nome do tema do terminal')
     )
 
 
 class KokoSerializer(serializers.Serializer):
-    basic = BasicSerializer(required=False, label=_('Basic'))
+    basic = BasicSerializer(required=False, label=_('Básico'))

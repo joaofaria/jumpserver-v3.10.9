@@ -8,12 +8,12 @@ __all__ = ['Category']
 
 class Category(ChoicesMixin, models.TextChoices):
     HOST = 'host', _('Host')
-    DEVICE = 'device', _("Device")
+    DEVICE = 'device', _("Dispositivo")
     DATABASE = 'database', _("Database")
-    CLOUD = 'cloud', _("Cloud service")
+    CLOUD = 'cloud', _("Serviço Cloud")
     WEB = 'web', _("Web")
     GPT = 'gpt', "GPT"
-    CUSTOM = 'custom', _("Custom type")
+    CUSTOM = 'custom', _("Tipo customizado")
 
     @classmethod
     def filter_choices(cls, category):

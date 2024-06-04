@@ -10,12 +10,12 @@ class BasicSerializer(serializers.Serializer):
     secret_key = EncryptedField(
         required=False, max_length=1024,
         write_only=True, allow_blank=True,
-        label=_('New file encryption password')
+        label=_('Nova senha de criptografia de arquivo')
     )
     secret_key_again = EncryptedField(
         required=False, max_length=1024,
         write_only=True, allow_blank=True,
-        label=_('Confirm file encryption password')
+        label=_('Confirme a senha de criptografia do arquivo')
     )
 
     def get_has_secret_key(self, obj):

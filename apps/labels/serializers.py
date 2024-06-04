@@ -19,13 +19,13 @@ class LabelSerializer(BulkOrgResourceModelSerializer):
         ]
         read_only_fields = ('date_created', 'date_updated', 'res_count')
         extra_kwargs = {
-            'res_count': {'label': _('Resource count')},
+            'res_count': {'label': _('Contagem de recursos')},
         }
 
     @staticmethod
     def validate_name(value):
         if ':' in value or ',' in value:
-            raise serializers.ValidationError(_('Cannot contain ":,"'))
+            raise serializers.ValidationError(_('Não pode conter ":,"'))
         return value
 
     def validate_value(self, value):
@@ -40,10 +40,10 @@ class LabelSerializer(BulkOrgResourceModelSerializer):
 
 class LabeledResourceSerializer(serializers.ModelSerializer):
     res_type = LabeledChoiceField(
-        choices=[], label=_("Resource type"), source='res_type_id', required=False
+        choices=[], label=_("Tipo de recurso"), source='res_type_id', required=False
     )
-    label = ObjectRelatedField(queryset=Label.objects, attrs=('id', 'display_name'), label=_("Label"))
-    resource = serializers.CharField(label=_("Resource"))
+    label = ObjectRelatedField(queryset=Label.objects, attrs=('id', 'display_name'), label=_("Etiqueta"))
+    resource = serializers.CharField(label=_("Recurso"))
 
     class Meta:
         model = LabeledResource

@@ -116,31 +116,31 @@ class AccountBackupAutomation(PeriodTaskModelMixin, JMSOrgBaseModel):
 class AccountBackupExecution(OrgModelMixin):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     date_start = models.DateTimeField(
-        auto_now_add=True, verbose_name=_('Date start')
+        auto_now_add=True, verbose_name=_('Data de início')
     )
     timedelta = models.FloatField(
         default=0.0, verbose_name=_('Time'), null=True
     )
     snapshot = models.JSONField(
         encoder=ModelJSONFieldEncoder, default=dict,
-        blank=True, null=True, verbose_name=_('Account backup snapshot')
+        blank=True, null=True, verbose_name=_('Snapshot de backup da conta')
     )
     trigger = models.CharField(
         max_length=128, default=Trigger.manual, choices=Trigger.choices,
-        verbose_name=_('Trigger mode')
+        verbose_name=_('Modo gatilho')
     )
     reason = models.CharField(
-        max_length=1024, blank=True, null=True, verbose_name=_('Reason')
+        max_length=1024, blank=True, null=True, verbose_name=_('Motivo')
     )
-    is_success = models.BooleanField(default=False, verbose_name=_('Is success'))
+    is_success = models.BooleanField(default=False, verbose_name=_('Sucesso'))
     plan = models.ForeignKey(
         'AccountBackupAutomation', related_name='execution', on_delete=models.CASCADE,
-        verbose_name=_('Account backup plan')
+        verbose_name=_('Plano de backup da conta')
     )
 
     class Meta:
         ordering = ('-date_start',)
-        verbose_name = _('Account backup execution')
+        verbose_name = _('Execução de backup de conta')
 
     @property
     def types(self):

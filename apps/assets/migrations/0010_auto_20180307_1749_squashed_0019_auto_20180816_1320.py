@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=128, unique=True, verbose_name='Name')),
                 ('comment', models.TextField(blank=True, verbose_name='Comment')),
-                ('date_created', models.DateTimeField(auto_now_add=True, null=True, verbose_name='Date created')),
+                ('', models.DateTimeField(auto_now_add=True, null=True, verbose_name='Date created')),
             ],
         ),
         migrations.CreateModel(
@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
                 ('_password', models.CharField(blank=True, max_length=256, null=True, verbose_name='Password')),
                 ('_private_key', models.TextField(blank=True, max_length=4096, null=True, validators=[assets.models.utils.private_key_validator], verbose_name='SSH private key')),
                 ('_public_key', models.TextField(blank=True, max_length=4096, verbose_name='SSH public key')),
-                ('date_created', models.DateTimeField(auto_now_add=True)),
+                ('', models.DateTimeField(auto_now_add=True)),
                 ('date_updated', models.DateTimeField(auto_now=True)),
                 ('created_by', models.CharField(max_length=128, null=True, verbose_name='Created by')),
                 ('ip', models.GenericIPAddressField(db_index=True, verbose_name='IP')),
